@@ -32,7 +32,8 @@ Implementation Notes
 
 **Hardware:**
 
-.. todo:: Add links to any specific hardware product page(s), or category page(s). Use unordered list & hyperlink rST
+.. todo:: Add links to any specific hardware product page(s), or category page(s).
+   Use unordered list & hyperlink rST
    inline format: "* `Link Text <url>`_"
 
 **Software and Dependencies:**
@@ -73,6 +74,7 @@ _INIT_SEQUENCE = (
     b"\x29\x80\x78"# Display on then delay 0x78 (120ms)
 )
 
+# pylint: disable=too-few-public-methods
 class ILI9341(displayio.Display):
     """ILI9341 display driver"""
     def __init__(self, bus):
