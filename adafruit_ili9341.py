@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-`adafruit_ILI9341`
+`adafruit_ili9341`
 ====================================================
 
 Display driver for ILI9341
