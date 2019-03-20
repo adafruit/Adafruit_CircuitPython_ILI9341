@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-`adafruit_ILI9341`
+`adafruit_ili9341`
 ====================================================
 
 Display driver for ILI9341
@@ -32,9 +32,16 @@ Implementation Notes
 
 **Hardware:**
 
-.. todo:: Add links to any specific hardware product page(s), or category page(s).
-   Use unordered list & hyperlink rST
-   inline format: "* `Link Text <url>`_"
+* 2.2" 18-bit color TFT LCD display with microSD card breakout
+  <https://www.adafruit.com/product/1480>
+* 2.4" TFT LCD with Touchscreen Breakout Board w/MicroSD Socket
+  <https://www.adafruit.com/product/2478>
+* 2.8" TFT LCD with Touchscreen Breakout Board w/MicroSD Socket
+  <https://www.adafruit.com/product/1770>
+* 3.2" TFT LCD with Touchscreen Breakout Board w/MicroSD Socket
+  <https://www.adafruit.com/product/1743>
+* TFT FeatherWing - 2.4" 320x240 Touchscreen For All Feathers
+  <https://www.adafruit.com/product/3315>
 
 **Software and Dependencies:**
 
@@ -49,7 +56,7 @@ __version__ = "0.0.0-auto.0"
 __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_ILI9341.git"
 
 _INIT_SEQUENCE = (
-    b"\x01\x80\x80"# Software reset then delay 0x78 (120ms)
+    b"\x01\x80\x80"            # Software reset then delay 0x80 (128ms)
     b"\xEF\x03\x03\x80\x02"
     b"\xCF\x03\x00\xC1\x30"
     b"\xED\x04\x64\x03\x12\x81"
@@ -70,8 +77,8 @@ _INIT_SEQUENCE = (
     b"\x26\x01\x01"            # Gamma curve selected
     b"\xe0\x0f\x0F\x31\x2B\x0C\x0E\x08\x4E\xF1\x37\x07\x10\x03\x0E\x09\x00" # Set Gamma
     b"\xe1\x0f\x00\x0E\x14\x03\x11\x07\x31\xC1\x48\x08\x0F\x0C\x31\x36\x0F" # Set Gamma
-    b"\x11\x80\x78"# Exit Sleep then delay 0x78 (120ms)
-    b"\x29\x80\x78"# Display on then delay 0x78 (120ms)
+    b"\x11\x80\x78"            # Exit Sleep then delay 0x78 (120ms)
+    b"\x29\x80\x78"            # Display on then delay 0x78 (120ms)
 )
 
 # pylint: disable=too-few-public-methods
