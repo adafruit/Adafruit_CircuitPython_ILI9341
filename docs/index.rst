@@ -23,14 +23,14 @@ Table of Contents
 .. toctree::
     :caption: Tutorials
 
-.. todo:: Add any Learn guide links here. If there are none, then simply delete this todo and leave
-    the toctree above for use later.
-
 .. toctree::
     :caption: Related Products
 
-.. todo:: Add any product links here. If there are none, then simply delete this todo and leave
-    the toctree above for use later.
+    2.2" 18-bit color TFT LCD display with microSD card breakout <https://www.adafruit.com/product/1480>
+    2.4" TFT LCD with Touchscreen Breakout Board w/MicroSD Socket <https://www.adafruit.com/product/2478>
+    2.8" TFT LCD with Touchscreen Breakout Board w/MicroSD Socket <https://www.adafruit.com/product/1770>
+    3.2" TFT LCD with Touchscreen Breakout Board w/MicroSD Socket <https://www.adafruit.com/product/1743>
+    TFT FeatherWing - 2.4" 320x240 Touchscreen For All Feathers <https://www.adafruit.com/product/3315>
 
 .. toctree::
     :caption: Other Links
