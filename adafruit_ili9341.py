@@ -85,4 +85,4 @@ _INIT_SEQUENCE = (
 class ILI9341(displayio.Display):
     """ILI9341 display driver"""
     def __init__(self, bus, **kwargs):
-        super().__init__(bus, _INIT_SEQUENCE, width=320, height=240, **kwargs)
+        super().__init__(bus, _INIT_SEQUENCE, **kwargs)
