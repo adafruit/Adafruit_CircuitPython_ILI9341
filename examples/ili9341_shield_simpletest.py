@@ -38,8 +38,8 @@ inner_bitmap = displayio.Bitmap(280, 200, 1)
 inner_palette = displayio.Palette(1)
 inner_palette[0] = 0x65328F # Blinka Purple
 inner_sprite = displayio.TileGrid(inner_bitmap,
-                               pixel_shader=inner_palette,
-                               x=20, y=20)
+                                  pixel_shader=inner_palette,
+                                  x=20, y=20)
 splash.append(inner_sprite)
 
 # Draw some text the manual way!
