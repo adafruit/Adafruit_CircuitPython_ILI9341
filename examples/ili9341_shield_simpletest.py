@@ -36,7 +36,7 @@ splash.append(bg_sprite)
 # Draw a smaller inner rectangle
 inner_bitmap = displayio.Bitmap(280, 200, 1)
 inner_palette = displayio.Palette(1)
-inner_palette[0] = 0x65328F # Blinka Purple
+inner_palette[0] = 0xAA0088 # Purple
 inner_sprite = displayio.TileGrid(inner_bitmap,
                                   pixel_shader=inner_palette,
                                   x=20, y=20)
