@@ -3,7 +3,7 @@ This test will initialize the display using displayio and draw a solid green
 background, a smaller purple rectangle, and some yellow text. All drawing is done
 using native displayio modules.
 
-Pinouts are for the 2.4" TFT FeatherWing with a Feather M4 or M0.
+Pinouts are for the 2.8" TFT Shield
 """
 import board
 import displayio
@@ -11,8 +11,8 @@ import terminalio
 import adafruit_ili9341
 
 spi = board.SPI()
-tft_cs = board.D9
-tft_dc = board.D10
+tft_cs = board.D10
+tft_dc = board.D9
 
 displayio.release_displays()
 display_bus = displayio.FourWire(spi, command=tft_dc, chip_select=tft_cs)
