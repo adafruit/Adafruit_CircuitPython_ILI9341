@@ -47,7 +47,7 @@ splash.append(inner_sprite)
 text_group = displayio.Group(max_size=10, scale=3, x=57, y=120)
 text = "Hello World!"
 text_area = label.Label(terminalio.FONT, text=text, color=0xFFFF00)
-text_group.append(text_area) # Subgroup gor text scaling
+text_group.append(text_area) # Subgroup for text scaling
 splash.append(text_group)
 
 while True:
