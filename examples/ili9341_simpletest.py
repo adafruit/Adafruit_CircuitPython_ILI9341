@@ -8,6 +8,7 @@ Pinouts are for the 2.4" TFT FeatherWing with a Feather M4 or M0.
 import board
 import displayio
 import terminalio
+from adafruit_display_text import label
 import adafruit_ili9341
 
 spi = board.SPI()
@@ -42,26 +43,11 @@ inner_sprite = displayio.TileGrid(inner_bitmap,
                                   x=20, y=20)
 splash.append(inner_sprite)
 
-# Draw some text the manual way!
-font_palette = displayio.Palette(2)
-font_palette.make_transparent(0)
-font_palette[1] = 0xFFFF00 # Yellow
-
-text_group = displayio.Group(max_size=20, scale=3, x=57, y=120)
+# Draw a label
+text_group = displayio.Group(max_size=10, scale=3, x=57, y=120)
 text = "Hello World!"
-x = 0
-
-for character in text:
-    glyph = terminalio.FONT.get_glyph(ord(character))
-    position_x = x + glyph.dx
-    position_y = 0 - round((glyph.height - glyph.dy) / 2) # Center text vertically
-    face = displayio.TileGrid(glyph.bitmap, pixel_shader=font_palette,
-                              default_tile=glyph.tile_index,
-                              tile_width=glyph.width, tile_height=glyph.height,
-                              x=position_x, y=position_y)
-    text_group.append(face)
-    x += glyph.shift_x
-
+text_area = label.Label(terminalio.FONT, text=text, color=0xFFFF00)
+text_group.append(text_area) # Subgroup gor text scaling
 splash.append(text_group)
 
 while True:
