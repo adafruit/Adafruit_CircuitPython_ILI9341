@@ -3,7 +3,7 @@ This test will initialize the display using displayio and draw a solid green
 background, a smaller purple rectangle, and some yellow text. All drawing is done
 using native displayio modules.
 
-Pinouts are for the 2.4" TFT FeatherWing with a Feather M4 or M0.
+Pinouts are for the 2.4" TFT FeatherWing or Breakout with a Feather M4 or M0.
 """
 import board
 import displayio
@@ -16,7 +16,7 @@ tft_cs = board.D9
 tft_dc = board.D10
 
 displayio.release_displays()
-display_bus = displayio.FourWire(spi, command=tft_dc, chip_select=tft_cs)
+display_bus = displayio.FourWire(spi, command=tft_dc, chip_select=tft_cs, reset=board.D6)
 display = adafruit_ili9341.ILI9341(display_bus, width=320, height=240)
 
 # Make the display context
