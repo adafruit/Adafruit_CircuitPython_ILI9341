@@ -10,11 +10,13 @@ import terminalio
 from adafruit_display_text import label
 import adafruit_ili9341
 
+# Release any resources currently in use for the displays
+displayio.release_displays()
+
 spi = board.SPI()
 tft_cs = board.D10
 tft_dc = board.D9
 
-displayio.release_displays()
 display_bus = displayio.FourWire(spi, command=tft_dc, chip_select=tft_cs)
 display = adafruit_ili9341.ILI9341(display_bus, width=320, height=240)
 
