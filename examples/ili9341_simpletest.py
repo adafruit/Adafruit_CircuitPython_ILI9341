@@ -6,8 +6,8 @@ using native displayio modules.
 Pinouts are for the 2.4" TFT FeatherWing or Breakout with a Feather M4 or M0.
 """
 import board
-import displayio
 import terminalio
+import displayio
 from adafruit_display_text import label
 import adafruit_ili9341
 
