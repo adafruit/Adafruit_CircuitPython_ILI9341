@@ -22,11 +22,11 @@ extensions = [
 # digitalio, micropython and busio. List the modules you use. Without it, the
 # autodoc module docs will fail to generate with a warning.
 # autodoc_mock_imports = ["digitalio", "busio"]
+autodoc_mock_imports = ["displayio"]
 
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3.4", None),
     "CircuitPython": ("https://circuitpython.readthedocs.io/en/latest/", None),
-    "displayio": ("https://adafruit-blinka-displayio.readthedocs.io/en/latest/", None),
 }
 
 # Add any paths that contain templates here, relative to this directory.
