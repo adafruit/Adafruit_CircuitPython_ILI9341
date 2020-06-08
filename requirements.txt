@@ -1,2 +1,2 @@
 Adafruit-Blinka
-Adafruit_Blinka_Displayio
+adafruit-blinka-displayio
