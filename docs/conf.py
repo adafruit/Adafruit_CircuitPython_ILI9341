@@ -26,10 +26,7 @@ extensions = [
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3.4", None),
     "CircuitPython": ("https://circuitpython.readthedocs.io/en/latest/", None),
-    "displayio": (
-        "https://adafruit-blinka-displayio.readthedocs.io/en/latest/",
-        "None",
-    ),
+    "displayio": ("https://adafruit-blinka-displayio.readthedocs.io/en/latest/", None),
 }
 
 # Add any paths that contain templates here, relative to this directory.
