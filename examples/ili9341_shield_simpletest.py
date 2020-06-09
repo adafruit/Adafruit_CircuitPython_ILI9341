@@ -5,8 +5,8 @@ background, a smaller purple rectangle, and some yellow text.
 Pinouts are for the 2.8" TFT Shield
 """
 import board
-import displayio
 import terminalio
+import displayio
 from adafruit_display_text import label
 import adafruit_ili9341
 
