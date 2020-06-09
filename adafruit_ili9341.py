@@ -32,6 +32,20 @@ Implementation Notes
 
 **Hardware:**
 
+* Adafruit PiTFT 2.2" HAT Mini Kit - 320x240 2.2" TFT - No Touch
+  <https://www.adafruit.com/product/2315>
+* Adafruit PiTFT 2.4" HAT Mini Kit - 320x240 TFT Touchscreen
+  <https://www.adafruit.com/product/2455>
+* Adafruit PiTFT - 320x240 2.8" TFT+Touchscreen for Raspberry Pi
+  <https://www.adafruit.com/product/1601>
+* PiTFT 2.8" TFT 320x240 + Capacitive Touchscreen for Raspberry Pi
+  <https://www.adafruit.com/product/1983>
+* Adafruit PiTFT Plus 320x240 2.8" TFT + Capacitive Touchscreen
+  <https://www.adafruit.com/product/2423>
+* PiTFT Plus Assembled 320x240 2.8" TFT + Resistive Touchscreen
+  <https://www.adafruit.com/product/2298>
+* PiTFT Plus 320x240 3.2" TFT + Resistive Touchscreen
+  <https://www.adafruit.com/product/2616>
 * 2.2" 18-bit color TFT LCD display with microSD card breakout
   <https://www.adafruit.com/product/1480>
 * 2.4" TFT LCD with Touchscreen Breakout Board w/MicroSD Socket
