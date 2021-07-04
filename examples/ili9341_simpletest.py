@@ -27,7 +27,7 @@ display_bus = displayio.FourWire(
 display = adafruit_ili9341.ILI9341(display_bus, width=320, height=240)
 
 # Make the display context
-splash = displayio.Group(max_size=10)
+splash = displayio.Group()
 display.show(splash)
 
 # Draw a green background
@@ -47,7 +47,7 @@ inner_sprite = displayio.TileGrid(inner_bitmap, pixel_shader=inner_palette, x=20
 splash.append(inner_sprite)
 
 # Draw a label
-text_group = displayio.Group(max_size=10, scale=3, x=57, y=120)
+text_group = displayio.Group(scale=3, x=57, y=120)
 text = "Hello World!"
 text_area = label.Label(terminalio.FONT, text=text, color=0xFFFF00)
 text_group.append(text_area)  # Subgroup for text scaling
