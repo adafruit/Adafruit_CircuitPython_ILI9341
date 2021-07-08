@@ -44,7 +44,7 @@ Usage Example
     display = adafruit_ili9341.ILI9341(display_bus, width=320, height=240)
 
     # Make the display context
-    splash = displayio.Group(max_size=10)
+    splash = displayio.Group()
     display.show(splash)
 
     color_bitmap = displayio.Bitmap(320, 240, 1)
