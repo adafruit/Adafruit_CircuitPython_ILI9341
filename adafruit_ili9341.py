@@ -46,6 +46,11 @@ Implementation Notes
   https://github.com/adafruit/circuitpython/releases
 
 """
+try:
+    # used for typing only
+    from typing import Any
+except ImportError:
+    pass
 
 import displayio
 
@@ -80,7 +85,11 @@ _INIT_SEQUENCE = (
 
 # pylint: disable=too-few-public-methods
 class ILI9341(displayio.Display):
-    """ILI9341 display driver"""
+    """
+    ILI9341 display driver
 
-    def __init__(self, bus, **kwargs):
+    :param displayio.FourWire bus: bus that the display is connected to
+    """
+
+    def __init__(self, bus: displayio.FourWire, **kwargs: Any):
         super().__init__(bus, _INIT_SEQUENCE, **kwargs)
