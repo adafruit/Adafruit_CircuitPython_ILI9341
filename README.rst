@@ -59,6 +59,11 @@ Usage Example
     while True:
         pass
 
+Documentation
+=============
+
+API documentation for this library can be found on `Read the Docs <https://circuitpython.readthedocs.io/projects/ili9341/en/latest/>`_.
+
 Contributing
 ============
 
