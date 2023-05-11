@@ -83,6 +83,7 @@ _INIT_SEQUENCE = (
     b"\x29\x80\x78"  # Display on then delay 0x78 (120ms)
 )
 
+
 # pylint: disable=too-few-public-methods
 class ILI9341(displayio.Display):
     """
