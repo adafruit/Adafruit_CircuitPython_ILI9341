@@ -36,6 +36,7 @@ Usage Example
 
     import board
     import displayio
+    import fourwire
     import adafruit_ili9341
 
     spi = board.SPI()
@@ -43,13 +44,13 @@ Usage Example
     tft_dc = board.D10
 
     displayio.release_displays()
-    display_bus = displayio.FourWire(spi, command=tft_dc, chip_select=tft_cs)
+    display_bus = fourwire.FourWire(spi, command=tft_dc, chip_select=tft_cs)
 
     display = adafruit_ili9341.ILI9341(display_bus, width=320, height=240)
 
     # Make the display context
     splash = displayio.Group()
-    display.show(splash)
+    display.root_group = splash
 
     color_bitmap = displayio.Bitmap(320, 240, 1)
     color_palette = displayio.Palette(1)

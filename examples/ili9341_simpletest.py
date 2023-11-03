@@ -11,6 +11,7 @@ Pinouts are for the 2.4" TFT FeatherWing or Breakout with a Feather M4 or M0.
 import board
 import terminalio
 import displayio
+import fourwire
 from adafruit_display_text import label
 import adafruit_ili9341
 
@@ -21,14 +22,12 @@ spi = board.SPI()
 tft_cs = board.D9
 tft_dc = board.D10
 
-display_bus = displayio.FourWire(
-    spi, command=tft_dc, chip_select=tft_cs, reset=board.D6
-)
+display_bus = fourwire.FourWire(spi, command=tft_dc, chip_select=tft_cs, reset=board.D6)
 display = adafruit_ili9341.ILI9341(display_bus, width=320, height=240)
 
 # Make the display context
 splash = displayio.Group()
-display.show(splash)
+display.root_group = splash
 
 # Draw a green background
 color_bitmap = displayio.Bitmap(320, 240, 1)
