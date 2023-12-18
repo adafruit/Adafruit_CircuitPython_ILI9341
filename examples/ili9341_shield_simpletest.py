@@ -10,9 +10,14 @@ Pinouts are for the 2.8" TFT Shield
 import board
 import terminalio
 import displayio
-import fourwire
 from adafruit_display_text import label
 import adafruit_ili9341
+
+# Support both 8.x.x and 9.x.x. Change when 8.x.x is discontinued as a stable release.
+try:
+    from fourwire import FourWire
+except ImportError:
+    from displayio import FourWire
 
 # Release any resources currently in use for the displays
 displayio.release_displays()
@@ -27,7 +32,7 @@ spi = board.SPI()
 tft_cs = board.D10
 tft_dc = board.D9
 
-display_bus = fourwire.FourWire(spi, command=tft_dc, chip_select=tft_cs)
+display_bus = FourWire(spi, command=tft_dc, chip_select=tft_cs)
 display = adafruit_ili9341.ILI9341(display_bus, width=320, height=240)
 
 # Make the display context
