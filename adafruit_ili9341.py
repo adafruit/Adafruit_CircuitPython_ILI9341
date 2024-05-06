@@ -76,7 +76,6 @@ _INIT_SEQUENCE = (
     b"\xc1\x01\x10"  # Power control SAP[2:0];BT[3:0]
     b"\xc5\x02\x3e\x28"  # VCM control
     b"\xc7\x01\x86"  # VCM control2
-    b"\x36\x01\x38"  # Memory Access Control
     b"\x37\x01\x00"  # Vertical scroll zero
     b"\x3a\x01\x55"  # COLMOD: Pixel Format Set
     b"\xb1\x02\x00\x18"  # Frame Rate Control (In Normal Mode/Full Colors)
@@ -98,5 +97,19 @@ class ILI9341(BusDisplay):
     :param FourWire bus: bus that the display is connected to
     """
 
-    def __init__(self, bus: FourWire, **kwargs: Any):
-        super().__init__(bus, _INIT_SEQUENCE, **kwargs)
+    def __init__(
+        self, bus: FourWire, *, bgr: bool = False, invert: bool = False, **kwargs: Any
+    ):
+        init_sequence = _INIT_SEQUENCE
+        if bgr:
+            init_sequence += (
+                b"\x36\x01\x30"  # _MADCTL Default rotation plus BGR encoding
+            )
+        else:
+            init_sequence += (
+                b"\x36\x01\x38"  # _MADCTL Default rotation plus RGB encoding
+            )
+        if invert:
+            init_sequence += b"\x21\x00"  # _INVON
+
+        super().__init__(bus, init_sequence, **kwargs)
