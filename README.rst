@@ -39,11 +39,14 @@ Usage Example
     import fourwire
     import adafruit_ili9341
 
+    # If you use explicit pins with busio.SPI(...), calling release_displays() first
+    # prevents "pin in use" errors on subsequent reloads.
+    displayio.release_displays()
+
     spi = board.SPI()
     tft_cs = board.D9
     tft_dc = board.D10
 
-    displayio.release_displays()
     display_bus = fourwire.FourWire(spi, command=tft_dc, chip_select=tft_cs)
 
     display = adafruit_ili9341.ILI9341(display_bus, width=320, height=240)
@@ -57,8 +60,8 @@ Usage Example
     color_palette[0] = 0xFF0000
 
     bg_sprite = displayio.TileGrid(color_bitmap,
-                                   pixel_shader=color_palette,
-                                   x=0, y=0)
+                                pixel_shader=color_palette,
+                                x=0, y=0)
     splash.append(bg_sprite)
 
     while True:
