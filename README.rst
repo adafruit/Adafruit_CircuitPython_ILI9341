@@ -64,6 +64,36 @@ Usage Example
     while True:
         pass
 
+Custom MADCTL Example
+---------------------
+
+The driver accepts an optional ``madctl`` keyword argument. If provided, the driver writes
+this value directly to the MADCTL register (0x36) during initialization. If omitted, the
+driver leaves MADCTL unchanged.
+
+This allows advanced users to apply hardware-level rotations or control BGR/RGB order
+without relying on displayio’s software rotation. Using MADCTL can improve performance
+when displaying large bitmaps (e.g. with ``OnDiskBitmap``).
+
+
+.. code-block:: python
+
+    import board
+    import displayio
+    import fourwire
+    import adafruit_ili9341
+
+    spi = board.SPI()
+    tft_cs = board.D9
+    tft_dc = board.D10
+
+    displayio.release_displays()
+    display_bus = fourwire.FourWire(spi, command=tft_dc, chip_select=tft_cs)
+
+    # Pass a custom MADCTL value (example: 0b01011000)
+    # Note: if you don't pass madctl, the driver does not modify the register.
+    display = adafruit_ili9341.ILI9341(display_bus, width=320, height=240, madctl=0b01011000)
+
 Documentation
 =============
 

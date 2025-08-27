@@ -92,15 +92,41 @@ class ILI9341(BusDisplay):
     ILI9341 display driver
 
     :param FourWire bus: bus that the display is connected to
+    :param bool bgr: Use BGR color order instead of RGB
+    :param bool invert: Invert the display
+    :keyword int madctl: (optional) Raw value to write to the MADCTL register (0x36).
+        If provided, the driver emits a MADCTL write during init.
+        If omitted, the driver leaves MADCTL unchanged.
+
+
     """
 
-    def __init__(self, bus: FourWire, *, bgr: bool = False, invert: bool = False, **kwargs: Any):
-        init_sequence = _INIT_SEQUENCE
-        if bgr:
-            init_sequence += b"\x36\x01\x30"  # _MADCTL Default rotation plus BGR encoding
-        else:
-            init_sequence += b"\x36\x01\x38"  # _MADCTL Default rotation plus RGB encoding
+    def __init__(
+        self,
+        bus: FourWire,
+        *,
+        bgr: bool = False,
+        invert: bool = False,
+        **kwargs: Any,
+    ):
+        # Accept optional raw MADCTL via kwargs (requested by maintainers)
+        madctl = kwargs.pop("madctl", None)
+
+        # Start with base init sequence
+        init_sequence = bytearray(_INIT_SEQUENCE)
+
+        # Only touch MADCTL if caller explicitly provided it via kwargs
+        if madctl is not None:
+            try:
+                idx = init_sequence.index(0x36)  # MADCTL command
+                init_sequence[idx + 1] = 0x01  # data length
+                init_sequence[idx + 2] = madctl & 0xFF
+            except ValueError:
+                # Not present — append a single-byte MADCTL write
+                init_sequence += bytes((0x36, 0x01, madctl & 0xFF))
+
+        # Inversion
         if invert:
-            init_sequence += b"\x21\x00"  # _INVON
+            init_sequence += b"\x21\x00"
 
         super().__init__(bus, init_sequence, **kwargs)

@@ -46,3 +46,16 @@ py-modules = ["adafruit_ili9341"]
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
 optional-dependencies = {optional = {file = ["optional_requirements.txt"]}}
+
+[tool.ruff]
+# Enable default linting rules
+select = ["E", "F"]
+
+# Ignore specific rules if needed
+ignore = []
+
+# Allow fixing issues automatically with `ruff check --fix`
+fix = true
+
+# Formatting (instead of Black)
+line-length = 88
