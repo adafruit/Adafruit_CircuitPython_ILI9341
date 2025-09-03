@@ -64,17 +64,14 @@ Usage Example
     while True:
         pass
 
-Custom MADCTL Example
----------------------
+Color Order Example
+-------------------
 
-The driver accepts an optional ``madctl`` keyword argument. If provided, the driver writes
-this value directly to the MADCTL register (0x36) during initialization. If omitted, the
-driver leaves MADCTL unchanged.
+The driver accepts a ``color_order`` keyword argument (default ``"RGB"``).
+Set it to ``"BGR"`` if your panel uses BGR pixel order instead of RGB.
 
-This allows advanced users to apply hardware-level rotations or control BGR/RGB order
-without relying on displayio’s software rotation. Using MADCTL can improve performance
-when displaying large bitmaps (e.g. with ``OnDiskBitmap``).
-
+For backward compatibility, a ``bgr`` boolean argument is still supported
+but is deprecated; prefer ``color_order="BGR"``.
 
 .. code-block:: python
 
@@ -90,9 +87,11 @@ when displaying large bitmaps (e.g. with ``OnDiskBitmap``).
     displayio.release_displays()
     display_bus = fourwire.FourWire(spi, command=tft_dc, chip_select=tft_cs)
 
-    # Pass a custom MADCTL value (example: 0b01011000)
-    # Note: if you don't pass madctl, the driver does not modify the register.
-    display = adafruit_ili9341.ILI9341(display_bus, width=320, height=240, madctl=0b01011000)
+    # Use BGR color order
+    display = adafruit_ili9341.ILI9341(display_bus, width=320, height=240, color_order="BGR")
+
+Note: Display rotation continues to be handled by displayio. The driver does not
+expose controller registers such as MADCTL directly.
 
 Documentation
 =============

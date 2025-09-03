@@ -60,6 +60,14 @@ from busdisplay import BusDisplay
 __version__ = "0.0.0+auto.0"
 __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_ILI9341.git"
 
+_MADCTL = 0x36
+_MADCTL_MY = 0x80
+_MADCTL_MX = 0x40
+_MADCTL_MV = 0x20
+_MADCTL_ML = 0x10
+_MADCTL_BGR = 0x08
+_MADCTL_MH = 0x04
+
 _INIT_SEQUENCE = (
     b"\x01\x80\x80"  # Software reset then delay 0x80 (128ms)
     b"\xef\x03\x03\x80\x02"
@@ -91,42 +99,48 @@ class ILI9341(BusDisplay):
     """
     ILI9341 display driver
 
-    :param FourWire bus: bus that the display is connected to
-    :param bool bgr: Use BGR color order instead of RGB
+    :param str color_order: "RGB" (default) or "BGR"
+    :param bool bgr: (deprecated) legacy option for color order
     :param bool invert: Invert the display
-    :keyword int madctl: (optional) Raw value to write to the MADCTL register (0x36).
-        If provided, the driver emits a MADCTL write during init.
-        If omitted, the driver leaves MADCTL unchanged.
-
-
     """
 
+    # ruff: noqa: PLR0913
     def __init__(
         self,
-        bus: FourWire,
+        bus,
         *,
-        bgr: bool = False,
-        invert: bool = False,
-        **kwargs: Any,
+        width=240,
+        height=320,
+        rotation=0,
+        color_order="RGB",
+        bgr=None,
+        invert=False,
+        **kwargs,
     ):
-        # Accept optional raw MADCTL via kwargs (requested by maintainers)
-        madctl = kwargs.pop("madctl", None)
-
-        # Start with base init sequence
         init_sequence = bytearray(_INIT_SEQUENCE)
 
-        # Only touch MADCTL if caller explicitly provided it via kwargs
-        if madctl is not None:
-            try:
-                idx = init_sequence.index(0x36)  # MADCTL command
-                init_sequence[idx + 1] = 0x01  # data length
-                init_sequence[idx + 2] = madctl & 0xFF
-            except ValueError:
-                # Not present — append a single-byte MADCTL write
-                init_sequence += bytes((0x36, 0x01, madctl & 0xFF))
+        if bgr is not None:
+            color_order = "BGR" if bgr else "RGB"
 
-        # Inversion
+        if str(color_order).upper() not in {"RGB", "BGR"}:
+            raise ValueError("color_order must be 'RGB' or 'BGR'")
+
+        madctl = 0x00
+        if str(color_order).upper() == "BGR":
+            madctl |= _MADCTL_BGR
+
+        init_sequence += bytes((_MADCTL, 0x01, madctl & 0xFF))
+
         if invert:
             init_sequence += b"\x21\x00"
 
-        super().__init__(bus, init_sequence, **kwargs)
+        self.init_sequence = bytes(init_sequence)
+
+        super().__init__(
+            bus,
+            init_sequence,
+            width=width,
+            height=height,
+            rotation=rotation,
+            **kwargs,
+        )
