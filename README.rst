@@ -67,6 +67,35 @@ Usage Example
     while True:
         pass
 
+Color Order Example
+-------------------
+
+The driver accepts a ``color_order`` keyword argument (default ``"RGB"``).
+Set it to ``"BGR"`` if your panel uses BGR pixel order instead of RGB.
+
+For backward compatibility, a ``bgr`` boolean argument is still supported
+but is deprecated; prefer ``color_order="BGR"``.
+
+.. code-block:: python
+
+    import board
+    import displayio
+    import fourwire
+    import adafruit_ili9341
+
+    spi = board.SPI()
+    tft_cs = board.D9
+    tft_dc = board.D10
+
+    displayio.release_displays()
+    display_bus = fourwire.FourWire(spi, command=tft_dc, chip_select=tft_cs)
+
+    # Use BGR color order
+    display = adafruit_ili9341.ILI9341(display_bus, width=320, height=240, color_order="BGR")
+
+Note: Display rotation continues to be handled by displayio. The driver does not
+expose controller registers such as MADCTL directly.
+
 Documentation
 =============
 
