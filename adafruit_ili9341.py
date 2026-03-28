@@ -60,6 +60,14 @@ from busdisplay import BusDisplay
 __version__ = "0.0.0+auto.0"
 __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_ILI9341.git"
 
+_MADCTL = 0x36
+_MADCTL_MY = 0x80
+_MADCTL_MX = 0x40
+_MADCTL_MV = 0x20
+_MADCTL_ML = 0x10
+_MADCTL_BGR = 0x08
+_MADCTL_MH = 0x04
+
 _INIT_SEQUENCE = (
     b"\x01\x80\x80"  # Software reset then delay 0x80 (128ms)
     b"\xef\x03\x03\x80\x02"
@@ -91,16 +99,48 @@ class ILI9341(BusDisplay):
     """
     ILI9341 display driver
 
-    :param FourWire bus: bus that the display is connected to
+    :param str color_order: "RGB" (default) or "BGR"
+    :param bool bgr: (deprecated) legacy option for color order
+    :param bool invert: Invert the display
     """
 
-    def __init__(self, bus: FourWire, *, bgr: bool = False, invert: bool = False, **kwargs: Any):
-        init_sequence = _INIT_SEQUENCE
-        if bgr:
-            init_sequence += b"\x36\x01\x30"  # _MADCTL Default rotation plus BGR encoding
-        else:
-            init_sequence += b"\x36\x01\x38"  # _MADCTL Default rotation plus RGB encoding
-        if invert:
-            init_sequence += b"\x21\x00"  # _INVON
+    # ruff: noqa: PLR0913
+    def __init__(
+        self,
+        bus,
+        *,
+        width=240,
+        height=320,
+        rotation=0,
+        color_order="RGB",
+        bgr=None,
+        invert=False,
+        **kwargs,
+    ):
+        init_sequence = bytearray(_INIT_SEQUENCE)
 
-        super().__init__(bus, init_sequence, **kwargs)
+        if bgr is not None:
+            color_order = "BGR" if bgr else "RGB"
+
+        if str(color_order).upper() not in {"RGB", "BGR"}:
+            raise ValueError("color_order must be 'RGB' or 'BGR'")
+
+        madctl = 0x00
+        if str(color_order).upper() == "BGR":
+            madctl |= _MADCTL_BGR
+
+        init_sequence += bytes((_MADCTL, 0x01, madctl & 0xFF))
+
+        if invert:
+            init_sequence += b"\x21\x00"
+
+        self.init_sequence = bytes(init_sequence)
+
+        super().__init__(
+            bus,
+            init_sequence,
+            width=width,
+            height=height,
+            rotation=rotation,
+            **kwargs,
+        )
